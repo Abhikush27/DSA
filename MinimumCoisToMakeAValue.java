@@ -3,46 +3,76 @@ import java.util.*;
 
 public class MinimumCoisToMakeAValue {
 	
-	public static void main(String[] args) {
-
-		int n = 23;
-		int a[] = {1, 5, 3};
-		
-		int dp[] = new int[n+1];
-		Arrays.fill(dp, -1);
-		dp[0] = 0;
-		
-		int ans = minCoins(n, a, dp);
-		System.out.println(ans);
-		
-		for(int x: dp) {
-			System.out.print(x+" ");
-		}
-	}
+		 public static int minCoins(int coins[], int M, int V) 
+	    { 
+	       
+	       if(V==0)
+	       return 0;
+	       if(V<0)
+	       return Integer.MAX_VALUE;
+	       
+	       int mini = Integer.MAX_VALUE;
+	       
+	       for(int i=0;i<M;i++){
+	           if(V>=coins[i]){
+	           int ans = minCoins(coins,M,V-coins[i]);
+	           
+	           if(ans+1<mini && ans!=Integer.MAX_VALUE)
+	           mini =ans+1;
+	       }
+	       }
+	        return mini;
+	    } 
 	
-	static int minCoins(int n, int a[], int dp[]) {
-		
-		if(n == 0) return 0;
-		
-		int ans = Integer.MAX_VALUE;
-		
-		for(int i = 0; i<a.length; i++) {
-			if(n-a[i] >= 0) {
-				int subAns = 0;
-				if(dp[n-a[i]] != -1) {
-					subAns = dp[n-a[i]];
-				} else {
-					subAns = minCoins(n-a[i], a, dp);
-				}
-				if(	subAns + 1 < ans) {
-					ans = subAns + 1;
-				}
-			}
-		}
-		return dp[n] = ans;
-	}
+	
+//	recursion+memorization
+	 public static int minCoins2(int coins[], int M, int V) 
+	    { 
+	       int dp[] = new int[V+1];
+	           Arrays.fill(dp,-1);
+	       if(V==0)
+	       return 0;
+	       if(V<0)
+	       return Integer.MAX_VALUE;
+	       
+	       if(dp[V]!=-1)
+	       return dp[V];
+	       
+	       int mini = Integer.MAX_VALUE;
+	       
+	       for(int i=0;i<M;i++){
+	           if(V>=coins[i]){
+	           int ans = minCoins(coins,M,V-coins[i]);
+	           
+	           if(ans+1<mini && ans!=Integer.MAX_VALUE)
+	           mini =ans+1;
+	               
+	       }
+	       }
+	           dp[V] = mini;
+	        return dp[V];
+	    } 
+	 
+	 
+//	 tabulation
+	 public static int minCoins3(int coins[], int M, int V) 
+	    { 
+	       int dp[] = new int[V+1];
+	Arrays.fill(dp,Integer.MAX_VALUE);
+	       dp[0]= 0;
+	       if(V<0)
+	       return Integer.MAX_VALUE;
+	       
 
-// The number of states that are changing in Dynamic programming that number of dimensional array will be used
-//	check it's normal recursion solution also
+	       for(int j=1;j<=V;j++){
+	       for(int i=0;i<M;i++){
+	           if(j>=coins[i] && dp[j-coins[i]]!=Integer.MAX_VALUE)
+	           dp[j] = Math.min(dp[j], 1+dp[j-coins[i]]);
+	       }
+	       }
+	          
+	        return dp[V];
+	    } 
+
 	
 }
