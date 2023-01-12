@@ -1,0 +1,80 @@
+package DynamicProgramming;
+
+import java.util.*;
+
+class solution{
+
+public static int solve(int n ,int x,int y,int z){
+
+    if(n==0)
+        return 0;
+        if(n<0)
+return Integer.MIN_VALUE;
+        
+        int a = solve(n-x,x,y,z)+1;
+        int b = solve(n-y,x,y,z)+1;
+        int c = solve(n-z,x,y,z)+1;
+      
+        int ans= Math.max(b,c);
+        int ans2 = Math.max(a,ans);
+        
+        return ans2;
+
+    }
+    
+     public static int solve2(int n ,int x,int y,int z){
+
+         int []dp = new int[n+1];
+             Arrays.fill(dp,-1);
+         
+    if(n==0)
+        return 0;
+        if(n<0)
+return Integer.MIN_VALUE;
+         
+         if(dp[n]!=-1)
+             return dp[n];
+        
+        int a = solve(n-x,x,y,z)+1;
+        int b = solve(n-y,x,y,z)+1;
+        int c = solve(n-z,x,y,z)+1;
+      
+        int ans= Math.max(b,c);
+        int ans2 = Math.max(a,ans);
+       dp[n]= ans2;
+         return dp[n];
+    }
+    
+    public static int solve3(int n ,int x,int y,int z){
+
+     
+
+        int dp[] = new int[n+1];
+   Arrays.fill(dp,Integer.MIN_VALUE);
+        
+        
+        dp[0] =0;
+        
+        for(int i=1;i<=n;i++){
+
+        if(i>=x)
+            dp[i]= Math.max(dp[i-x]+1,dp[i]);  //we are comparing it to the current value at the nth position with n-x
+            
+            if(y<=i)
+                dp[i]= Math.max(dp[i-y]+1,dp[i]); // we are comparing it to the current value at the n-xth position with n-y
+            
+            if(z<=i)
+                dp[i]= Math.max(dp[i-z]+1,dp[i]); // we are comparing it to the current value at the n-zth position with n-z
+            }
+        return dp[n];
+       }
+    
+    public static int cutSegments(int n, int x, int y, int z) {
+        // Write your code here.
+        int ans =solve(n,x,y,z);
+        if(ans<0)
+            return 0;
+        else
+        return ans;
+    }
+}
