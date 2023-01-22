@@ -1,0 +1,39 @@
+package DynamicProgramming;
+
+public class CobinationalSum {
+	
+	
+  public static int solve(int []num,int tar){
+if(tar<0)
+  return 0;
+      if(tar==0)
+          return 1;
+     
+//         return solve(num,n,tar-num[n-1]) + solve(num,n-1,tar);
+//         but as the arrangement matters we can't use the above solution
+     
+      int ans =0;
+      for(int i=0;i<num.length;i++){
+ans+=solve(num,tar-num[i]);
+}
+      return ans;  }
+ 
+ public static int solve3(int []num,int tar){
+
+     int []dp = new int[tar+1];
+     dp[0]=1;
+     
+//      return solve(num,n,tar-num[n-1]) + solve(num,n-1,tar);
+//      but as the arrangement matters we can't use the above solution
+     
+     for(int j=1;j<=tar;j++){
+     for(int i=0;i<num.length;i++){
+        if(j>=num[i])
+             dp[j] += dp[j-num[i]];
+}
+     }
+
+     return dp[tar];
+ }
+
+}
