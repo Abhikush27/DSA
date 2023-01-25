@@ -1,0 +1,67 @@
+package DynamicProgramming;
+
+public class NinjaTrip {
+	
+	
+	
+//	didn't understood watch again
+	
+    public static int solve(int n, int []days, int cost[],int index){
+        if(index==n)
+               return 0;
+           
+//            for 1 day
+           int one = cost[0]+solve(n,days,cost,index+1);
+           
+           int k;
+//            for 7 days
+           for(k=index;k<n;k++){
+              if(days[k]>=days[index]+7)
+                  break;
+           }
+           int seven = cost[1]+solve(n,days,cost,k);
+    
+//            for 30 days
+           for(k=index;k<n;k++){
+               if(days[k]>=days[index]+30)
+                  break;
+   }
+           int thirty = cost[2]+solve(n,days,cost,k);
+          
+           return Math.min(one,Math.min(seven,thirty));
+       }
+
+       
+       public static int solve2(int n, int []days, int cost[],int index){
+           int dp[] = new int[n+1];
+           for(int i=0;i<=n;i++){
+             dp[i]=-1;}
+        if(index==n)
+               return 0;
+          
+           if(dp[index]!=-1)
+               return dp[index];
+           
+//            for 1 day
+           int one = cost[0]+solve(n,days,cost,index+1);
+           
+           int k;
+//            for 7 days
+           for(k=index;k<n;k++){
+              if(days[k]>=days[index]+7)
+                  break;
+           }
+           int seven = cost[1]+solve(n,days,cost,k);
+    
+//            for 30 days
+           for(k=index;k<n;k++){
+               if(days[k]>=days[index]+30)
+                  break;
+   }
+           int thirty = cost[2]+solve(n,days,cost,k);
+          
+           dp[index]= Math.min(one,Math.min(seven,thirty));
+           return dp[index];
+       }2
+
+}
