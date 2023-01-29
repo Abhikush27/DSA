@@ -1,0 +1,28 @@
+package recursion;
+
+public class isSorted {
+	
+	public static boolean checkit(int arr[],int n) {
+		
+		if(n==0 || n==1)
+			return true;
+		
+		if(arr[n-1]<arr[n-2])
+		return false;
+		
+		return checkit(arr,n-1);
+
+}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int arr[] = {11,13,14,15,18};
+		boolean x = checkit(arr,5);
+		if(x) {
+			System.out.println("Yes");
+		}
+		else
+			System.out.println("false");
+	}
+
+}
