@@ -1,0 +1,57 @@
+package BinaryTree;
+
+// In Binary Tree one node can have at max two branches
+import java.util.Scanner;
+
+public class Implementation {
+	
+	
+	
+	public static class Node {
+		public int data;
+		public Node left;  // for this watch getter and setter video of code with harry
+		
+	   public Node right;
+
+		public Node(int data) { // constructor
+			this.data = data;
+			this.left = this.right = null;
+
+		}
+	}
+	
+public static class buildTree{
+		
+		public Node BinaryTree() {
+			Scanner sc = new Scanner(System.in);
+			Node root = null;
+			System.out.println("Enter data: ");
+			int data = sc.nextInt();
+
+			if (data == -1)
+				return null;
+
+			root = new Node(data);
+//			
+
+			System.out.println("Enter left for " + data);
+			root.left = BinaryTree();
+
+			System.out.println("Enter right for " + data);
+			root.right = BinaryTree();
+
+			return root;
+		}
+		
+	}
+	
+
+public static void main(String[] args) {
+	
+	buildTree t1 = new buildTree();
+	Node x = t1.BinaryTree();
+	System.out.println(x.data);
+
+}
+
+}
