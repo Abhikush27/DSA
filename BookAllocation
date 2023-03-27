@@ -1,0 +1,62 @@
+public static boolean isPossible(int []A,int N,int studentsgiven,int middle){
+        int sumPages=0;
+        int initialStudents=1;
+        
+        for(int i=0;i<N;i++){
+            
+            if(studentsgiven>N)
+            return false;
+            
+            if(A[i]+sumPages<=middle)
+            sumPages+=A[i];
+            
+            else{
+                initialStudents+=1;
+                
+                if(initialStudents>studentsgiven ||middle<A[i]){
+                    return false;
+                }
+                
+                    // sumPages=0;
+                    // sumPages+=A[i];
+                    sumPages=A[i];
+            }
+        }
+        
+        return true;
+    }
+    
+    public static int minimum(int []A,int N){
+        int minval = Integer.MAX_VALUE;
+        for(int i=0;i<N;i++){
+            if(A[i]<minval)
+            minval=A[i];
+        }
+        return minval;
+    }
+    
+    public static int findPages(int[]A,int N,int M)
+    {
+        // int low = minimum(A,N);
+        int low =0;
+        int ans=-1;
+        int sum=0;
+        for(int i=0;i<N;i++){
+            sum+=A[i];
+        }
+        int high = sum;
+        int middle = low+(high-low)/2;
+        
+        while(low<=high){
+            if(isPossible(A,N,M,middle)){
+                ans=middle;
+                high=middle-1;
+            }
+            else{
+                low=middle+1;
+            }
+            middle = low+(high-low)/2;
+        }
+        return ans;
+    }
+	
