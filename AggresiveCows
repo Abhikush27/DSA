@@ -1,0 +1,57 @@
+public static boolean isPossible(int n,int k,int [] stalls,int middle)
+    {
+        int count=1;
+        int c1 = stalls[0];
+        
+        for(int i=1;i<n;i++){
+            if(Math.abs(stalls[i]-c1)>=middle){
+                count++;
+                c1=stalls[i];
+            }
+            if(count==k)
+            return true;
+        }
+        return false;
+    }
+    
+    public static int maxi(int []stalls,int n){
+        int maxval = Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            if(stalls[i]>maxval)
+            maxval = stalls[i];
+        }
+        return maxval;
+    }
+    
+    public static int mini(int []stalls,int n){
+        int minval = Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            if(stalls[i]<minval)
+            minval = stalls[i];
+        }
+        return minval;
+    }
+    
+    public static int solve(int n, int k, int[] stalls) {
+        int low =0;
+        // int minval=mini(stalls,n);
+        // int maxval = maxi(stalls,n);
+        //  int high = maxval-minval;
+        Arrays.sort(stalls);
+        int high=stalls[n-1]-stalls[0];
+         
+         int mid = low+(high-low)/2;
+         int ans =0;
+         
+         while(low<=high){
+             if(isPossible(n,k,stalls,mid)){
+                 ans = mid;
+                 low = mid+1;
+             }
+             else{
+                 high=mid-1;
+             }
+             mid = low+(high-low)/2;
+         }
+         return ans;
+    }
