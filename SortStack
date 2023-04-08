@@ -1,0 +1,30 @@
+package StackAndQueue;
+import java.util.*;
+
+public class SortStack {
+	
+	
+	public void insertSorted(Stack<Integer> s,int num){
+        if(s.isEmpty() || (!s.isEmpty() && s.peek()<num) ){
+            s.push(num);
+            return;
+        }
+        int n = s.pop();
+        insertSorted(s,num);
+        
+        s.push(n);
+    }
+    
+	public void sort(Stack<Integer> s)
+	{
+		if(s.isEmpty())
+		return;
+		
+		int n = s.pop();
+		sort(s);
+		
+		insertSorted(s,n);
+
+	}
+
+}
