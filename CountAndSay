@@ -1,0 +1,39 @@
+ package Strings;
+
+public class CountAndSay {
+
+	public static String count(int n) {
+	if(n==1)
+        return "1";
+        if(n==2)
+        return "11";
+
+        String str ="11";
+
+        for(int i=3;i<=n;i++){
+
+             str += '$';
+        int len = str.length();
+ 
+        int count = 1; 
+        
+        String temp = ""; 
+        
+        char []array = str.toCharArray();
+
+            for(int j=1;j<len;j++){
+
+                if(array[j]!=array[j-1]){
+                    temp+=count;
+                    temp +=array[j-1];
+                    count=1;
+                }
+                else
+                count++;
+            }
+            str=temp;
+        }
+        return str;
+    }
+	
+}
