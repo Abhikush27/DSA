@@ -1,0 +1,101 @@
+package StackAndQueue;
+
+public class DequeueUsingArray {
+	
+	static class Dequeue{
+//		static int MAX;
+		int arr[];
+		int front;
+		int rear;
+		int size;
+		
+		public Dequeue(int size){
+			this.size=size;
+			front = -1;
+			rear=0;
+			arr = new int[size];
+		}
+		
+		public boolean isFull() {
+			if((front==0 && rear==size-1) || front ==rear+1)
+				return true;
+			else
+				return false;
+		}
+		public boolean isEmpty() {
+			if(front==-1)
+				return true;
+			else
+				return false;
+		}
+		
+		public void insertFront(int data) {
+			if(isFull()) {
+				System.out.print("Overflow");
+			}
+			if(front==-1) {
+				front=rear=0;
+				}
+			if(front==0)
+				front=size-1;
+			else {
+				front--;}
+			arr[front]=data;
+		}
+		
+		public void insertRear(int data) {
+			if(isFull()) {
+				System.out.print("Overflow");
+			}
+			if(rear==size-1)
+				rear=0;
+			if(front==-1)
+				front=rear=0;
+			else
+				rear++;
+			arr[rear]=data;
+		}
+		
+		public void deleteFront() {
+			if(isEmpty())
+				System.out.print("Underflow");
+//			if there is only one element
+			if(front==rear) {
+				front=rear=-1;
+			}
+			if(front==size-1)
+				front =0;
+			else
+				front++;
+		}
+		
+		public void deleteRear() {
+			if(isEmpty())
+				System.out.print("Underflow");
+			if(front==rear) {
+				front=rear=-1;
+			}
+			if(rear==0)
+				rear=size-1;
+			else
+				rear=rear-1;
+		}
+		
+		public int getfront() {
+			if (isEmpty()) {
+			      System.out.println(" Underflow");
+			      return -1;
+			    }
+			    return arr[front];
+		}
+		
+		public int getRear() {
+			if (isEmpty()) {
+			      System.out.println(" Underflow");
+			      return -1;
+			    }
+			    return arr[front];
+		}
+	}
+
+}
