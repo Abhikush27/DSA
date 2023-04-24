@@ -1,0 +1,23 @@
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+      
+	int balance =0;
+	int deficit =0;
+	int n = gas.length;
+	int front=0;
+	for(int rear=0;rear<n;rear++){
+	balance+=gas[rear]-cost[rear];
+	if(balance<0){
+	    deficit+=balance;
+	    balance=0;
+	    front =rear+1;
+	    
+	}
+	}
+	if(deficit+balance>=0)
+	return front;
+	else
+	return -1;
+    
+    }
+}
