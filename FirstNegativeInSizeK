@@ -1,0 +1,52 @@
+
+import java.util.*;
+class HelloWorld {
+    
+    public static ArrayList<Integer> printFirstNegativeInteger(int A[], int N, int K)
+    {
+        Queue<Integer> Di = new LinkedList<>();
+        ArrayList<Integer> arr = new ArrayList<>();
+ 
+    int i;
+    for (i = 0; i < K; i++)
+     
+        if (A[i] < 0)
+            Di.add(i);
+     
+    for ( ; i < N; i++)
+    {
+       
+        if (!Di.isEmpty())
+            arr.add(A[Di.peek()]);
+         
+        else
+            arr.add(0);
+ 
+        while ((!Di.isEmpty()) &&
+                 Di.peek() < (i - K + 1))
+            Di.remove();
+ 
+      
+        if (A[i] < 0)
+            Di.add(i);
+    }
+ 
+  
+    if (!Di.isEmpty())
+        arr.add(A[Di.peek()]);
+    else
+       arr.add(0);
+    return arr;
+    }
+    
+    
+    public static void main(String[] args) {
+         int arr[] = {12, -1, -7, 8, -15, 30, 16, 28};
+    int n = arr.length;
+    int k = 3;
+    printFirstNegativeInteger(arr, n, k);
+    for(int i=0;i<n;i++){
+        System.out.print(arr[i]+" ");
+    }
+    }
+}
