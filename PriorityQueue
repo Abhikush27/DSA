@@ -1,0 +1,40 @@
+package StackAndQueue;
+import java.util.*;
+
+public class priorityQueue {
+//	priority queue by default implements minheap in java and maxheap in c++:
+
+	public static void main(String[] args) {
+		class Solution {
+		    int[] kLargest(int[] arr, int n, int k) {
+		       
+		       PriorityQueue<Integer> pq = new PriorityQueue<>();
+		       for(int i=0;i<n;i++){
+		           if(i<k){
+		               pq.add(arr[i]);
+		           }
+		           else{
+		               if(pq.peek()<arr[i]){
+		                   pq.remove();
+		                   pq.add(arr[i]);
+		               }
+		           }
+		       }
+		       int [] a = new int[k];
+		       int j=0;
+		       while(!pq.isEmpty()){
+		           a[j]=pq.remove();
+		           j++;
+		       }
+		       Arrays.sort(a);
+		    //   int []a2 = new int[k];
+		    //   for(int x=k-1,y=0;x>=0 && y<k;x--,y++){
+		    //       a2[y]=a[x];
+		    //   }
+		       return a;
+		       
+		    }
+		}
+	}
+
+}
