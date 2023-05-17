@@ -1,0 +1,77 @@
+package DynamicProgramming2D;
+import java.util.*;
+
+public class NinjasTraining {
+	
+//	recursion
+	public static int ninja(int n, int points[][],int lastday){
+
+		if(n==0){
+		            int maxi = Integer.MIN_VALUE;
+		            for(int i=0;i<3;i++){
+		if(i!=lastday){
+		    maxi = Math.max(maxi,points[n][i]);
+		}
+		            }
+		     return maxi;
+		        }
+
+		int maxi =0;
+
+		for(int i=0;i<3;i++){
+		    if(i!=lastday){
+		        int total =points[n][i]+ninja(n-1,points,i);
+		        maxi = Math.max(maxi,total); 
+		    }
+		}
+		return maxi;
+		 }
+	
+	
+//	DP
+	
+	public static int ninja(int n, int points[][], int lastday, int[][] dp) {
+        if (n == 0) {
+            int maxi = Integer.MIN_VALUE;
+            for (int i = 0; i < 3; i++) {
+                if (i != lastday) {
+                    maxi = Math.max(maxi, points[n][i]);
+                }
+            }
+            return maxi;
+        }
+
+        if (dp[n][lastday] != -1) {
+            return dp[n][lastday];
+        }
+
+        int maxi = 0;
+
+        // Iterate over the options for the current day
+        for (int i = 0; i < 3; i++) {
+            if (i != lastday) {
+                int total = points[n][i] + ninja(n - 1, points, i, dp);
+                maxi = Math.max(maxi, total);
+            }
+        }
+
+        dp[n][lastday] = maxi;
+        return dp[n][lastday];
+    }
+
+    public static int ninjaTraining(int n, int points[][]) {
+        int[][] dp = new int[n + 1][4];
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+
+        return ninja(n - 1, points, 3, dp);
+    }
+    
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
