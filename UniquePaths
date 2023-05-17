@@ -1,0 +1,50 @@
+// recursion
+
+// public static int unique(int m, int n){
+
+// if(m==0 && n==0) return 1;
+// if(m<0 || n<0) return 0;
+
+// return unique(m,n-1)+unique(m-1,n);
+
+// }
+
+
+// memorization
+// public static int unique(int m, int n,int [][]dp){
+// 	if(m==0 && n==0) return 1;
+// if(m<0 || n<0) return 0;
+
+// if(dp[m][n]!=-1)
+// return dp[m][n];
+
+// return dp[m][n] = unique(m,n-1,dp)+unique(m-1,n,dp);
+
+// }
+
+// tabulation
+public static int unique(int m, int n, int[][] dp) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i == 0 && j == 0)
+                dp[i][j] = 1;
+            else {
+                int right = 0;
+                int down = 0;
+
+                if (j > 0)
+                    right = dp[i][j - 1];
+                if (i > 0)
+                    down = dp[i - 1][j];
+                dp[i][j] = right + down;
+            }
+        }
+    }
+    return dp[m - 1][n - 1];
+}
+
+public static int uniquePaths(int m, int n) {
+    int[][] dp = new int[m][n];
+    int x = unique(m, n, dp);
+    return x;
+}
